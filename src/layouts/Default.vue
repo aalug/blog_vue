@@ -1,0 +1,18 @@
+<template>
+  <div class="bg"></div>
+  <div class="bg bg2"></div>
+  <div class="bg bg3"></div>
+  <v-layout class="layout">
+    <router-view/>
+  </v-layout>
+
+</template>
+
+<style scoped>
+.layout {
+  background-color: white;
+  width: 70%;
+  margin: 0 auto;
+  padding-bottom: 6rem;
+}
+</style>
