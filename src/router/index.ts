@@ -1,5 +1,5 @@
 // Composables
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
@@ -13,11 +13,29 @@ const routes = [
       },
     ],
   },
-]
+  {
+    path: '/',
+    component: () => import('@/layouts/Base.vue'),
+    children: [
+      {
+        path: '/sign-up',
+        name: 'sign-up',
+        component: () => import('@/views/SignUp.vue'),
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: () => import('@/views/SignUp.vue'),
+      },
+    ],
+  },
+
+
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-})
+});
 
-export default router
+export default router;

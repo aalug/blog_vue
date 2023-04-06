@@ -1,4 +1,5 @@
 <template>
+
   <div class="bg"></div>
   <div class="bg bg2"></div>
   <div class="bg bg3"></div>
@@ -12,6 +13,7 @@
 .layout {
   background-color: white;
   width: 70%;
+  height: 100vh;
   margin: 0 auto;
   padding-bottom: 6rem;
 }
