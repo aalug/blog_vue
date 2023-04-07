@@ -25,17 +25,21 @@ const routes = [
       {
         path: '/login',
         name: 'login',
+        component: () => import('@/views/LogIn.vue'),
+      },
+      {
+        path: '/profile',
+        name: 'profile',
         component: () => import('@/views/SignUp.vue'),
       },
     ],
   },
-
-
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  linkActiveClass: 'active',
 });
 
 export default router;

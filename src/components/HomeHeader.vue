@@ -5,7 +5,6 @@
       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero nostrum quis, odio veniam itaque ullam debitis
         qui magnam consequatur ab. Vero nostrum quis, odio veniam itaque ullam debitis qui magnam consequatur ab.</p>
       <br>
-      <button>JOIN US</button>
     </div>
   </header>
 
@@ -43,20 +42,4 @@ h3, p {
 	margin-bottom: 30px;
 }
 
-button {
-	border: none;
-	outline: none;
-	padding: 10px 20px;
-	border-radius: 50px;
-	color: #333;
-	background: #fff;
-	margin-bottom: 50px;
-	box-shadow: 0 3px 20px 0 #0000003b;
-  transition: all .3s ease;
-  -webkit-transition: all .3s ease;
-}
-button:hover{
-	cursor: pointer;
-  background-color: #16e88a;
-}
 </style>

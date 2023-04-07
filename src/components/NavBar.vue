@@ -39,7 +39,7 @@
         class="nav-item"
       >
         <router-link
-          :to="{name: 'home'}"
+          :to="{name: 'profile'}"
           class="nav-link"
         >
           My Profile
@@ -52,9 +52,10 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  userLoggedIn: boolean;
-}>()
+import {useUserStore} from '@/store/users';
+
+const userLoggedIn: boolean = !!useUserStore().token
+
 </script>
 
 <style scoped>
@@ -116,11 +117,11 @@ defineProps<{
   transform-origin: top right;
 }
 
-.nav-item:hover .nav-link::before { /* Updated this selector */
+.nav-item:hover .nav-link::before {
   width: 100%;
 }
 
-.nav-item:hover .nav-link::after { /* Updated this selector */
+.nav-item:hover .nav-link::after {
   height: 100%;
 }
 </style>
