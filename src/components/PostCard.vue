@@ -1,8 +1,8 @@
 <template>
   <v-card
-    class="mx-auto card"
+    class="mx-auto card rainbow"
     variant="text"
-    style="margin-top: 7rem;"
+    style="margin-top: 7rem; color: black !important;"
     max-width="1280"
     color="white"
   >
@@ -11,12 +11,10 @@
       height="200"
       :src="props.post.coverImage"
       cover
-    >
-      <v-card-title>{{ props.post.title }}</v-card-title>
-    </v-img>
+    ></v-img>
+    <v-card-title>{{ props.post.title }}</v-card-title>
 
-
-    <v-card-subtitle class="pt-4">
+    <v-card-subtitle class="pt-4 text-black">
       <span>{{ props.post.author.username }}</span>
       <span class="float-right">
         <v-chip
@@ -74,29 +72,72 @@ onMounted(async () => {
 
 <style scoped>
 .card {
+  border-radius: 0;
   transition: all .3s ease-in-out;
 }
 
 .card:hover {
   cursor: pointer;
-  transform: scale(1.05);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  transform: scale(1.02);
 }
 
 p {
   position: absolute;
-  color: grey;
+  color: #676767;
   font-size: 11px;
 }
 
 .nOfComments {
-  left: 5px;
-  bottom: 5px;
+  left: 3rem;
+  bottom: 1rem;
 }
 
 .date {
-  right: 5px;
-  bottom: 5px;
+  right: 3rem;
+  bottom: 1rem;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.rainbow {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.rainbow:hover::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background-color: #399953;
+  background-repeat: no-repeat;
+  background-size: 50% 50%, 50% 50%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  background-image: linear-gradient(#0d91ee, #0d91ee), linear-gradient(#3fd30e, #3fd30e), linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
+  animation: rotate 5s linear infinite;
+}
+
+.rainbow:hover::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 6px;
+  top: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  background: white;
+}
 </style>

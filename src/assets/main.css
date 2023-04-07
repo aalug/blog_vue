@@ -39,3 +39,7 @@ body {
     }
 }
 
+/* Active link */
+.active {
+    background-image: linear-gradient(to bottom, black 95%, white 5%);
+}

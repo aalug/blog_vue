@@ -1,7 +1,17 @@
 <template>
   <v-container>
-    <HomeHeader />
+    <HomeHeader/>
+
+    <div v-if="loading" class="loading">
+      <v-progress-circular
+        indeterminate
+        :size="123"
+        :width="10"
+      ></v-progress-circular>
+    </div>
+
     <PostCard
+      v-else
       v-for="post in posts"
       v-bind:key="post.id"
       :post="post"
@@ -42,5 +52,12 @@ onMounted(async () => {
 .header h1 {
   font-family: 'Fasthand', cursive;
   font-size: 6rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 10rem;
+  color: teal;
 }
 </style>

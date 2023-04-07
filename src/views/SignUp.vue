@@ -75,10 +75,9 @@
           {{ errorMessage }}
         </p>
 
-        <div class="d-flex flex-column">
+        <div class="d-flex mt-12 flex-column">
           <v-btn
             color="black"
-            class="mt-4"
             block
             type="submit"
             :disabled="loading"
@@ -123,6 +122,8 @@ const showMoreInfo = ref<boolean>(false);
 
 const userStore = useUserStore();
 const {loading, errorMessage, isSuccessful} = storeToRefs(userStore);
+// Clear the error message - when coming from login page the message would be kept
+errorMessage.value = '';
 
 const handleSubmit = async () => {
   let dateOfBirth = '';
@@ -150,7 +151,7 @@ const handleSubmit = async () => {
 
 .sheet {
   background-color: rgba(255, 255, 255, 0.8);
-  padding: 2rem 2.5rem 4rem 2.5rem;
+  padding: 2rem 2.5rem 2.5rem 2.5rem;
 }
 
 .dp__theme_light {
