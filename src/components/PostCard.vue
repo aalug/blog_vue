@@ -74,6 +74,7 @@ onMounted(async () => {
 
 <style scoped>
 .card {
+  border-radius: 0;
   transition: all .3s ease-in-out;
 }
 
