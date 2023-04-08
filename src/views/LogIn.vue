@@ -41,7 +41,7 @@
             block
             type="submit"
             :disabled="loading"
-            style="border-radius: 0"
+            rounded="0"
           >
             Login
           </v-btn>
