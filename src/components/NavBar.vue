@@ -1,5 +1,45 @@
 <template>
   <nav class="navbar">
+    <div class="color-theme-chooser navbar-nav">
+      <ul class="nav-item">
+        <li
+          class="nav-link"
+          @click="showColorPicker = !showColorPicker">
+          {{ colorPickerText }}
+        </li>
+      </ul>
+      <div>
+        <div class="d-flex">
+          <v-color-picker
+            v-if="showColorPicker"
+            v-model="color1"
+            class="ma-2 color-picker"
+            :swatches="swatches"
+            show-swatches
+            hide-sliders
+            rounded="0"
+          ></v-color-picker>
+          <v-color-picker
+            v-if="showColorPicker"
+            v-model="color2"
+            class="ma-2 color-picker"
+            :swatches="swatches"
+            show-swatches
+            hide-sliders
+            rounded="0"
+          ></v-color-picker>
+        </div>
+        <v-btn
+          v-if="showColorPicker"
+          class="save-color"
+          rounded="0"
+          color="black"
+          @click="sendColors()"
+        >
+          Save
+        </v-btn>
+      </div>
+    </div>
     <ul class="navbar-nav">
       <li class="nav-item">
         <router-link
@@ -52,9 +92,45 @@
 </template>
 
 <script setup lang="ts">
-import {useUserStore} from '@/store/users';
+import { ref, computed } from 'vue';
+import { useUserStore } from '@/store/users';
 
-const userLoggedIn: boolean = !!useUserStore().token
+const emit = defineEmits(['colorThemeChange']);
+
+const showColorPicker = ref<boolean>(false);
+const color1 = ref<string>('');
+const color2 = ref<string>('');
+
+const colorPickerText = computed(() => showColorPicker.value ? 'Close color picker' : 'Choose color theme')
+
+const userLoggedIn: boolean = !!useUserStore().token;
+
+const sendColors = () => {
+  // Close the color picker
+  showColorPicker.value = false;
+
+  // Set local storage to keep the values
+  localStorage.setItem('themeColors', `${color1.value}-${color2.value}`);
+
+  // Send emit with new colors
+  emit('colorThemeChange', [color1.value, color2.value]);
+};
+
+// For color theme picker
+const swatches = [
+  ['#FF0000', '#AA0000', '#550000'],
+  ['#FFFF00', '#AAAA00', '#555500'],
+  ['#00FF00', '#00AA00', '#005500'],
+  ['#00FFFF', '#00AAAA', '#005555'],
+  ['#0000FF', '#0000AA', '#000055'],
+  ['#FF00FF', '#AA00AA', '#550055'], // magenta shades
+  ['#FFA500', '#AA7500', '#554000'], // orange shades
+  ['#800080', '#550055', '#2A002A'], // purple shades
+  ['#008000', '#005500', '#002A00'], // green shades
+  ['#000080', '#000055', '#00002A'], // navy shades
+  ['#FFFFFF', '#AAAAAA', '#555555'], // grayscale shades
+  ['#FFC0CB', '#FFA07A', '#CD5C5C'], // pink and coral shades
+];
 
 </script>
 
@@ -123,5 +199,21 @@ const userLoggedIn: boolean = !!useUserStore().token
 
 .nav-item:hover .nav-link::after {
   height: 100%;
+}
+
+.color-theme-chooser {
+  position: absolute;
+  left: -1rem;
+  color: white;
+  cursor: pointer;
+}
+
+.color-picker {
+  z-index: 100;
+  width: 20rem;
+}
+
+.save-color {
+  width: 100%;
 }
 </style>
