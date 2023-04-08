@@ -22,6 +22,7 @@
           v-bind:key="tag.id"
           variant="elevated"
           :color="avgColor"
+          class="ml-1"
         >
           {{ tag.name }}
         </v-chip>
@@ -126,7 +127,7 @@ p {
   background-repeat: no-repeat;
   background-size: 50% 50%, 50% 50%;
   background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-  background-image: linear-gradient(#0d91ee, #0d91ee), linear-gradient(#3fd30e, #3fd30e), linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
+  background-image: linear-gradient(#0d5cee, #ea1717), linear-gradient(#f6e905, #e0c51b), linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
   animation: rotate 5s linear infinite;
 }
 

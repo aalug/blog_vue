@@ -3,6 +3,6 @@ export class UserProfile {
     public firstName: string = '',
     public lastName: string = '',
     public dateOfBirth: string = '',
-    public profileImage: string = ''
+    public profileImage: File | null | Blob = null
   ) {}
 }
