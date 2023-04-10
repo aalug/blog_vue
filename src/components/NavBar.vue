@@ -50,6 +50,15 @@
         </router-link>
       </li>
 
+      <li class="nav-item">
+        <router-link
+          :to="{name: 'posts'}"
+          class="nav-link"
+        >
+          All posts
+        </router-link>
+      </li>
+
       <li
         v-if="!userLoggedIn"
         class="nav-item"

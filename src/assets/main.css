@@ -40,6 +40,23 @@ body {
 }
 
 /* Active link */
-.active {
+.router-link-exact-active {
     background-image: linear-gradient(to bottom, black 95%, white 5%);
+}
+
+.post-loading {
+    display: flex;
+    justify-content: center;
+    margin-top: 10rem;
+    color: teal;
+}
+
+.date-picker {
+    border: solid 1px #b9b8b8;
+    height: 3rem;
+    transition: border-color .3s;
+}
+
+.date-picker:hover {
+    border-color: black;
 }

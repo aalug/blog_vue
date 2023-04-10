@@ -7,7 +7,7 @@
         :timeout="4000"
         color="white"
       />
-
+      <h2 class="mb-4">Login</h2>
       <v-form @submit.prevent="handleSubmit()">
         <v-text-field
           v-model="email"
@@ -15,6 +15,8 @@
           label="Email"
           type="email"
           required
+          variant="outlined"
+          rounded="0"
         ></v-text-field>
 
         <v-text-field
@@ -22,6 +24,8 @@
           :rules="[v => !!v || 'Password is required']"
           label="Password"
           required
+          variant="outlined"
+          rounded="0"
           :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
           :type="showPass ? 'text' : 'password'"
           hint="At least 6 characters"
@@ -72,8 +76,8 @@ const router = useRouter();
 
 const handleSubmit = async () => {
   await userStore.handleLogin(email.value, password.value);
-  if (isSuccessful.value){
-    await router.push({name: 'home'})
+  if (isSuccessful.value) {
+    await router.push({name: 'home'});
   }
 };
 
