@@ -34,6 +34,8 @@
         <v-text-field
           v-model="userData.password"
           label="Password"
+          variant="outlined"
+          rounded="0"
           :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
           :type="showPass ? 'text' : 'password'"
           hint="At least 6 characters"
@@ -45,12 +47,16 @@
           v-model="userData.firstName"
           label="First Name"
           class="my-4"
+          variant="outlined"
+          rounded="0"
         ></v-text-field>
 
         <v-text-field
           v-model="userData.lastName"
           label="Last Name"
           class="my-4"
+          variant="outlined"
+          rounded="0"
         ></v-text-field>
 
         <VueDatePicker
@@ -60,7 +66,7 @@
           :format="dateFormat"
           placeholder="Date Of Birth"
           auto-apply
-          class="my-4"
+          class="my-4 date-picker"
         ></VueDatePicker>
 
         <v-file-input
@@ -68,6 +74,8 @@
           prepend-icon="mdi-camera"
           label="Profile Image"
           class="my-10"
+          variant="outlined"
+          rounded="0"
           @change="onFileSelected"
         ></v-file-input>
 
@@ -259,9 +267,9 @@ onMounted(async () => {
   --dp-primary-color: #1976d2;
   --dp-primary-text-color: #f8f5f5;
   --dp-secondary-color: #c0c4cc;
-  --dp-border-color: rgba(80, 80, 80, 0.6);
+  --dp-border-color: rgba(0, 0, 0, 0);
   --dp-menu-border-color: #ddd;
-  --dp-border-color-hover: #141414;
+  --dp-border-color-hover: rgba(0, 0, 0, 0);
   --dp-disabled-color: #f6f6f6;
   --dp-scroll-bar-background: #f3f3f3;
   --dp-scroll-bar-color: #959595;

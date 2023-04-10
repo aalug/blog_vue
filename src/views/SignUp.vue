@@ -9,12 +9,16 @@
         :signUp="true"
         class="mb-6"
       />
+
+      <h2 class="mb-4">Sign up</h2>
       <v-form @submit.prevent="handleSubmit()">
         <v-text-field
           v-model="userData.email"
           :rules="[v => !!v || 'Email is required']"
           label="Email"
           type="email"
+          variant="outlined"
+          rounded="0"
           required
         ></v-text-field>
 
@@ -22,6 +26,8 @@
           v-model="userData.username"
           :rules="[v => !!v || 'Username is required']"
           label="Username"
+          variant="outlined"
+          rounded="0"
           required
         ></v-text-field>
 
@@ -30,6 +36,8 @@
           :rules="[v => !!v || 'Password is required']"
           label="Password"
           required
+          variant="outlined"
+          rounded="0"
           :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
           :type="showPass ? 'text' : 'password'"
           hint="At least 6 characters"
@@ -49,10 +57,14 @@
             <v-text-field
               v-model="userData.firstName"
               label="First Name"
+              variant="outlined"
+              rounded="0"
             ></v-text-field>
             <v-text-field
               v-model="userData.lastName"
               label="Last Name"
+              variant="outlined"
+              rounded="0"
             ></v-text-field>
 
             <VueDatePicker
@@ -62,7 +74,7 @@
               :format="dateFormat"
               placeholder="Date Of Birth"
               auto-apply
-              style="border: none !important;"
+              class="date-picker"
             ></VueDatePicker>
 
           </div>
@@ -163,9 +175,9 @@ const handleSubmit = async () => {
   --dp-primary-color: #1976d2;
   --dp-primary-text-color: #f8f5f5;
   --dp-secondary-color: #c0c4cc;
-  --dp-border-color: rgba(80, 80, 80, 0.6);
+  --dp-border-color: rgba(0, 0, 0, 0);
   --dp-menu-border-color: #ddd;
-  --dp-border-color-hover: #141414;
+  --dp-border-color-hover: rgba(0, 0, 0, 0);
   --dp-disabled-color: #f6f6f6;
   --dp-scroll-bar-background: #f3f3f3;
   --dp-scroll-bar-color: #959595;

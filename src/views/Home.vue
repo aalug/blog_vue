@@ -2,7 +2,7 @@
   <v-container>
     <HomeHeader/>
 
-    <div v-if="loading" class="loading">
+    <div v-if="loading" class="post-loading">
       <v-progress-circular
         indeterminate
         :size="123"
@@ -54,10 +54,4 @@ onMounted(async () => {
   font-size: 6rem;
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  margin-top: 10rem;
-  color: teal;
-}
 </style>
