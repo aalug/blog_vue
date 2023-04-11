@@ -221,6 +221,25 @@ export const useUserStore = defineStore('users', () => {
         }
       };
 
+      const handleResetPassword = async (encodedPk: string,
+                                         token: string,
+                                         password: string) => {
+        loading.value = true;
+        try {
+          await axios.patch(
+            `${import.meta.env.VITE_API_BASE_URL}/user/reset-password/${encodedPk}/${token}/`,
+            {password: password}
+          );
+          isSuccessful.value = true;
+        } catch (e) {
+          console.error(e);
+          // @ts-ignore
+          errorMessage.value = e.response.data.message;
+        } finally {
+          loading.value = false;
+        }
+      };
+
       return {
         user,
         token,
@@ -231,7 +250,7 @@ export const useUserStore = defineStore('users', () => {
         handleLogin,
         handleUpdateUserProfile,
         getUserInfo,
+        handleResetPassword,
       };
     }
-  )
-;
+  );
