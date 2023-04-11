@@ -5,6 +5,7 @@
     style="margin-top: 7rem; color: black !important;"
     max-width="1280"
     color="white"
+    @click="goToPostView()"
   >
     <v-img
       class="align-end text-white"
@@ -43,6 +44,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { Post } from '@/types/Post';
 import { getAverageColor } from '@/utils/get-avg-color';
 
@@ -51,6 +53,8 @@ const props = defineProps<{
 }>();
 
 const avgColor = ref<string>('');
+
+const router = useRouter();
 
 const options = {
   hour: '2-digit',
@@ -64,6 +68,16 @@ const options = {
 };
 const date = new Date(props.post.createdAt)
   .toLocaleDateString("en-US", options);
+
+const goToPostView = () => {
+  /**
+   * Go to the post details page.
+   */
+  router.push({
+    name: 'post-details',
+    params: {id: props.post.id, slug: props.post.slug}
+  });
+};
 
 onMounted(async () => {
   avgColor.value = await getAverageColor(props.post.coverImage);
