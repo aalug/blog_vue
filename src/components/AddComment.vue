@@ -1,6 +1,8 @@
 <template>
   <div class="comment d-flex">
-    <div class="author">
+    <div
+      v-if="user"
+      class="author">
       <img
         v-if="user.userProfile.profileImage"
         :src="user.userProfile.profileImage"
@@ -8,18 +10,32 @@
       <h3>{{ user.username }}</h3>
     </div>
     <v-text-field
+      v-model="comment"
       variant="outlined"
-      label="Add a comment..."
+      :label="user.email < 2 ? 'Please login to add a comment.' : 'Add a comment...'"
+      :disabled="user.email < 2"
       style="height: 20rem; width: 40rem;"
     ></v-text-field>
-    <div class="triangle"></div>
+    <div
+      class="triangle"
+      @click="handleCreateComment()"
+    ></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
+import axios from 'axios';
 import { useUserStore } from "@/store/users";
+
+const props = defineProps<{
+  postId: number
+}>();
+
+const emit = defineEmits(['commentAdded']);
+
+const comment = ref<string>('');
 
 const userStore = useUserStore();
 const {user} = storeToRefs(userStore);
@@ -27,6 +43,24 @@ const {user} = storeToRefs(userStore);
 onMounted(async () => {
   await userStore.getUserInfo();
 });
+
+const handleCreateComment = async () => {
+  if (!comment.value) return
+  try {
+    const {data} = await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/post/comments/`,
+      {
+        text: comment.value,
+        post: props.postId
+      },
+      {headers: {Authorization: `Token ${userStore.token}`}}
+    );
+    emit('commentAdded', data);
+    comment.value = '';
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 </script>
 

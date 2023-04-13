@@ -1,7 +1,7 @@
 <template>
   <v-container
     v-if="props.post"
-    class="mt-8"
+    class="mt-4"
   >
     <v-img
       :src="props.post.coverImage"
