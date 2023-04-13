@@ -16,6 +16,11 @@ const routes = [
         name: 'posts',
         component: () => import('@/views/AllPosts.vue'),
       },
+      {
+        path: '/posts/:id/:slug',
+        name: 'post-details',
+        component: () => import('@/views/PostView.vue'),
+      },
     ],
   },
   {
