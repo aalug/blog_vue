@@ -7,7 +7,7 @@
         v-if="user.userProfile.profileImage"
         :src="user.userProfile.profileImage"
         :alt="`${user.username}'s profile photo`">
-      <h3>{{ user.username }}</h3>
+      <h3 class="mr-3">{{ user.username }}</h3>
     </div>
     <v-text-field
       v-model="comment"

@@ -1,4 +1,5 @@
 import { User } from '@/types/User';
+import { VoteType } from '@/types/Vote';
 
 export interface Comment {
   id: number;
@@ -8,4 +9,5 @@ export interface Comment {
   numberOfDownvotes: number;
   createdAt: string;
   updatedAt: string;
+  hasVoted: VoteType | null;
 }
