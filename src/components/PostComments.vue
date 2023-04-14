@@ -8,6 +8,14 @@
     text="you want to delete this comment?"
     @confirm="handleConfirmingDelete"
   />
+  <!-- Edit a comment -->
+  <EditCommentDialog
+    v-if="showEditCommentDialog"
+    :key="editCommentDialogRefresh"
+    :oldCommentText="editCommentText"
+    :editCommentId="editCommentId"
+    @closeDialog="afterEditCommentClose"
+  />
 
   <div
     v-for="comment in formattedComments"
@@ -20,7 +28,7 @@
       >
         <span
           class="edit-delete-comment edit-comment"
-          @click="editComment(comment.id)"
+          @click="editComment(comment.id, comment.text)"
         >
           edit
         </span>
@@ -77,6 +85,7 @@ import { useUserStore } from '@/store/users';
 import { Comment } from '@/types/Comment';
 import { VoteType } from '@/types/Vote';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
+import EditCommentDialog from '@/components/EditCommentDialog.vue';
 
 const props = defineProps<{
   comments: Comment[]
@@ -89,6 +98,11 @@ const {token, user} = storeToRefs(userStore);
 const showConfirmationDialog = ref<boolean>(false);
 const refreshConfirmDialog = ref<boolean>(false);
 const commentToDeleteId = ref<number>(0);
+
+const editCommentText = ref<string>('');
+const editCommentId = ref<number>(0);
+const showEditCommentDialog = ref<boolean>(false);
+const editCommentDialogRefresh = ref<boolean>(false);
 
 const allComments = toRef(props, 'comments');
 
@@ -172,6 +186,20 @@ const deleteComment = async () => {
   }
   commentToDeleteId.value = 0;
 };
+
+const editComment = (commentId: number, oldText: string) => {
+  /**
+   * Set the refs values to use them in the edit comment component.
+   */
+  showEditCommentDialog.value = true;
+  editCommentId.value = commentId;
+  editCommentText.value = oldText;
+};
+
+const afterEditCommentClose = () => {
+  editCommentDialogRefresh.value = !editCommentDialogRefresh.value;
+  showEditCommentDialog.value = false;
+}
 
 </script>
 
