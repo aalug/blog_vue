@@ -41,7 +41,7 @@ const post = ref<Post>();
 const comments = ref<Comment[]>([]);
 
 const userStore = useUserStore();
-const {user} = storeToRefs(userStore);
+const {token} = storeToRefs(userStore);
 
 const route = useRoute();
 
@@ -49,13 +49,25 @@ onMounted(async () => {
   const id = route.params.id;
   loading.value = true;
   try {
-    const {data} = await axios.get(
-      `${import.meta.env.VITE_API_BASE_URL}/post/posts/${id}/`
-    );
-    post.value = data;
+    if (token.value) {
+      const {data} = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/post/posts/${id}/`,
+        {headers: {Authorization: `Token ${token.value}`}}
+        // If the token exists, user is logged-in nad can get additional info
+        // such as if they voted on a comment or not.
+      );
+      post.value = data;
+      avgColor.value = await getAverageColor(data.coverImage);
+    } else {
+      const {data} = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/post/posts/${id}/`
+      );
+      post.value = data;
+      avgColor.value = await getAverageColor(data.coverImage);
+    }
+
     if (post.value)
       comments.value = post.value.comments;
-    avgColor.value = await getAverageColor(data.coverImage);
   } catch (e) {
     console.error(e);
   } finally {
