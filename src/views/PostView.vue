@@ -79,8 +79,6 @@ const handleCommentAdded = async (comment: Comment) => {
   comment.numberOfUpvotes = 0;
   comment.numberOfDownvotes = 0;
 
-  comment.createdAt = 'now';
-
   comments.value.unshift(comment);
 };
 
