@@ -1,43 +1,29 @@
-# default
+# Vue.js Blog app
+It is a frontend for the [blog_drf app](https://github.com/aalug/blog_drf)
+built with the Django REST framework.
 
-## Project setup
 
-```
-# yarn
-yarn
+### App is built with:
 
-# npm
-npm install
+- Vue 3
+    + TypeScript
+    + Composition API
+- Pinia
+- Vuetify
 
-# pnpm
-pnpm install
-```
 
-### Compiles and hot-reloads for development
+## Getting started
 
-```
-# yarn
-yarn dev
+1. Rename `.env.sample` to `.env` and replace the values
+2. Run in the terminal `yarn` or `npm install`
+3. Then run: `yarn dev` or `npm run dev`
+4. Now, app should be running at http://localhost:3000/
 
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-```
 
 ### Compiles and minifies for production
 
-```
-# yarn
-yarn build
-
-# npm
-npm run build
-
-# pnpm
-pnpm build
-```
+- `yarn build`
+- `npm run build`
 
 ### Customize configuration
 
