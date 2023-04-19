@@ -95,13 +95,26 @@
         </router-link>
       </li>
 
+      <li
+        v-if="user.isStaff"
+        class="nav-item"
+      >
+        <router-link
+          :to="{name: 'create-post'}"
+          class="nav-link"
+        >
+          Add a new post
+        </router-link>
+      </li>
+
     </ul>
   </nav>
 
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/store/users';
 
 const emit = defineEmits(['colorThemeChange']);
@@ -110,9 +123,16 @@ const showColorPicker = ref<boolean>(false);
 const color1 = ref<string>('');
 const color2 = ref<string>('');
 
-const colorPickerText = computed(() => showColorPicker.value ? 'Close color picker' : 'Choose color theme')
+const colorPickerText = computed(() => showColorPicker.value ? 'Close color picker' : 'Choose color theme');
 
-const userLoggedIn: boolean = !!useUserStore().token;
+const userStore = useUserStore();
+const {user, token} = storeToRefs(userStore);
+
+onMounted(async () => {
+  await userStore.getUserInfo();
+})
+
+const userLoggedIn: boolean = !!token.value;
 
 const sendColors = () => {
   // Close the color picker
