@@ -210,6 +210,7 @@ export const useUserStore = defineStore('users', () => {
           );
           user.value.username = data.user.username;
           user.value.email = data.user.email;
+          user.value.isStaff = data.user.isStaff;
           user.value.userProfile.firstName = data.firstName;
           user.value.userProfile.lastName = data.lastName;
           user.value.userProfile.dateOfBirth = data.dateOfBirth;
