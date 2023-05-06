@@ -34,6 +34,17 @@ const routes = [
             return {name: 'home'};
         },
       },
+      {
+        path: '/edit-post/:id',
+        name: 'edit-post',
+        component: () => import('@/views/CreatePost.vue'),
+        beforeEnter: (to: any, from: any) => {
+          const user = useUserStore().user;
+          if (!user.isStaff)
+            // reject the navigation because the user is NOT logged-in
+            return {name: 'home'};
+        },
+      },
     ],
   },
   {

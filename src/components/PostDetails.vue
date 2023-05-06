@@ -10,8 +10,15 @@
       class="bg-grey-lighten-2"
     ></v-img>
 
-    <!-- Authors  -->
-    <h3 class="float-right">{{ props.post.author.username }}</h3>
+    <!-- Authors and post edit -->
+    <router-link
+      v-if="isUserStaff"
+      :to="{name: 'edit-post', params: {id: props.post.id}}"
+      class="float-left text-blue"
+      style="text-decoration: none"
+    >
+      Edit post
+    </router-link>
 
     <span class="float-left mt-3">
         <v-chip
@@ -40,8 +47,9 @@ import { Post } from '@/types/Post';
 
 const props = defineProps<{
   post: Post,
-  tagColor: string
-}>()
+  tagColor: string,
+  isUserStaff: boolean
+}>();
 
 </script>
 

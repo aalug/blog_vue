@@ -3,7 +3,9 @@
     <!--  Post details -->
     <PostDetails
       :post="post"
-      :tagColor="avgColor"/>
+      :tagColor="avgColor"
+      :isUserStaff="user.isStaff"
+    />
 
     <!--  Add comment  -->
     <AddComment
@@ -41,7 +43,7 @@ const post = ref<Post>();
 const comments = ref<Comment[]>([]);
 
 const userStore = useUserStore();
-const {token} = storeToRefs(userStore);
+const {token, user} = storeToRefs(userStore);
 
 const route = useRoute();
 
