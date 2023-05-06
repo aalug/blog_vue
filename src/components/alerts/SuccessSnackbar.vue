@@ -5,7 +5,9 @@
     :color="color"
     class="snackbar"
   >
-    <div>{{ text }}</div>
+    <div class="text-center">
+      <h4>{{ text }}</h4>
+    </div>
   </v-snackbar>
 </template>
 
