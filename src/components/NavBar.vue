@@ -40,74 +40,90 @@
         </v-btn>
       </div>
     </div>
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <router-link
-          :to="{name: 'home'}"
-          class="nav-link"
-        >
-          Home
-        </router-link>
-      </li>
+    <div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <router-link
+            :to="{name: 'home'}"
+            class="nav-link"
+          >
+            Home
+          </router-link>
+        </li>
 
-      <li class="nav-item">
-        <router-link
-          :to="{name: 'posts'}"
-          class="nav-link"
-        >
-          All posts
-        </router-link>
-      </li>
+        <li class="nav-item">
+          <router-link
+            :to="{name: 'posts'}"
+            class="nav-link"
+          >
+            All posts
+          </router-link>
+        </li>
 
-      <li
-        v-if="!userLoggedIn"
-        class="nav-item"
-      >
-        <router-link
-          :to="{name: 'login'}"
-          class="nav-link"
+        <li
+          v-if="!userLoggedIn"
+          class="nav-item"
         >
-          Login
-        </router-link>
-      </li>
+          <router-link
+            :to="{name: 'login'}"
+            class="nav-link"
+          >
+            Login
+          </router-link>
+        </li>
 
-      <li
-        v-if="!userLoggedIn"
-        class="nav-item"
-      >
-        <router-link
-          :to="{name: 'sign-up'}"
-          class="nav-link"
+        <li
+          v-if="!userLoggedIn"
+          class="nav-item"
         >
-          Sign Up
-        </router-link>
-      </li>
+          <router-link
+            :to="{name: 'sign-up'}"
+            class="nav-link"
+          >
+            Sign Up
+          </router-link>
+        </li>
 
-      <li
-        v-else
-        class="nav-item"
-      >
-        <router-link
-          :to="{name: 'profile'}"
-          class="nav-link"
+        <li
+          v-else
+          class="nav-item"
         >
-          My Profile
-        </router-link>
-      </li>
+          <router-link
+            :to="{name: 'profile'}"
+            class="nav-link"
+          >
+            My Profile
+          </router-link>
+        </li>
 
-      <li
-        v-if="user.isStaff"
-        class="nav-item"
-      >
-        <router-link
-          :to="{name: 'create-post'}"
-          class="nav-link"
+        <li
+          v-if="user.isStaff"
+          class="nav-item"
         >
-          Add a new post
-        </router-link>
-      </li>
+          <router-link
+            :to="{name: 'create-post'}"
+            class="nav-link"
+          >
+            Add a new post
+          </router-link>
+        </li>
+      </ul>
+    </div>
 
-    </ul>
+    <div
+      v-if="token"
+      class="logout navbar-nav"
+    >
+      <ul class="nav-item">
+        <li
+          class="nav-link"
+          @click="logout()"
+        >
+          Logout
+        </li>
+      </ul>
+    </div>
+
   </nav>
 
 </template>
@@ -128,9 +144,20 @@ const colorPickerText = computed(() => showColorPicker.value ? 'Close color pick
 const userStore = useUserStore();
 const {user, token} = storeToRefs(userStore);
 
+const logout = () => {
+  /**
+   * Handle the logout by calling
+   * handleLogout function of the users store.
+   * After removing the token from local storage,
+   * reload the page so the changes are reflected in the interface.
+   */
+  userStore.handleLogout();
+  window.location.reload();
+};
+
 onMounted(async () => {
   await userStore.getUserInfo();
-})
+});
 
 const userLoggedIn: boolean = !!token.value;
 
@@ -244,5 +271,11 @@ const swatches = [
 
 .save-color {
   width: 100%;
+}
+
+.logout {
+  position: absolute;
+  right: 0.5rem;
+  cursor: pointer;
 }
 </style>
