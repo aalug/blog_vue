@@ -7,7 +7,7 @@ import { isFormDataEmpty } from '@/utils/is-formdata-empty';
 
 export const useUserStore = defineStore('users', () => {
     const user = ref<User>(new User());
-    const token = ref<string | null>(localStorage.getItem('token'));
+    const token = ref<string | null>(null);
     const errorMessage = ref<string>('');
     const loading = ref<boolean>(false);
     const isSuccessful = ref<boolean>(false);
@@ -202,6 +202,8 @@ export const useUserStore = defineStore('users', () => {
       /**
        * Get user information and update the user.value.
        */
+      token.value = localStorage.getItem('token');
+
       loading.value = true;
       try {
         const {data} = await axios.get(
@@ -216,6 +218,9 @@ export const useUserStore = defineStore('users', () => {
         user.value.userProfile.dateOfBirth = data.dateOfBirth;
         user.value.userProfile.profileImage = data.profileImage;
       } catch (e) {
+        // token is invalid, remove it from the localStorage
+        token.value = null;
+        localStorage.removeItem('token');
         console.error(e);
       } finally {
         loading.value = false;
@@ -240,8 +245,6 @@ export const useUserStore = defineStore('users', () => {
         loading.value = false;
       }
     };
-
-
     const handleLogout = () => {
       /**
        * Logout the user by removing the token from the localStorage.
@@ -249,7 +252,7 @@ export const useUserStore = defineStore('users', () => {
       localStorage.removeItem('token');
       token.value = '';
       user.value = new User();
-    }
+    };
 
     return {
       user,
